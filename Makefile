@@ -21,3 +21,15 @@ run:
 
 test:
 	./venv/bin/pytest --cov=. tests/
+
+test-docker:
+	docker compose exec -e PYTHONPATH=/app api pytest tests/ -v --cov --cov-config=.coveragerc
+
+reset-demo:
+	docker compose down -v
+	docker compose up -d db api
+	echo "Waiting for db to be ready..."
+	sleep 5
+	docker compose exec api alembic upgrade head
+	docker compose exec api python -m db.seed
+	docker compose up -d ui

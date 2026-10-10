@@ -1,0 +1,17 @@
+[run]
+source = 
+    api
+    core
+    db
+    services
+omit = 
+    tests/*
+    */__init__.py
+    ui/*
+    venv/*
+    alembic/*
+    run_pipeline_on_csvs.py
+
+[report]
+show_missing = True
+fail_under = 70

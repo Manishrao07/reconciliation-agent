@@ -65,15 +65,23 @@ class ResolutionAgent:
                 "payment_amount": str(payment.amount) if payment else "N/A",
                 "refund_amount": "N/A", # Simplicity
                 "order_id": disc.related_order_id or "N/A",
-                "payment_id": disc.related_payment_id or "N/A"
+                "payment_id": payment.id if payment else "N/A",
+                "payment_reference": payment.reference if payment else "N/A"
             }
             
-            llm_explanation, latency = self.llm.explain_discrepancy(context)
+            import logging
+            logger = logging.getLogger(__name__)
+
+            llm_explanation, latency, source, error_msg = self.llm.explain_discrepancy(context)
+            
+            if source == "template" and error_msg:
+                logger.warning(f"LLM Fallback triggered: {error_msg}")
             
             action = CorrectiveAction(
-                discrepancy_id=disc.id, # We need disc.id, but disc is not flushed yet. We must flush discrepancies first in pipeline.
+                discrepancy_id=disc.id,
                 suggested_action=suggested_action,
                 llm_explanation=llm_explanation,
+                explanation_source=source,
                 status=status,
                 required_role=required_role
             )

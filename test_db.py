@@ -58,6 +58,12 @@ def main():
         print("FAIL: Delete should have raised an exception")
     except Exception as e:
         print("SUCCESS: Delete blocked!")
+    try:
+        with engine.begin() as conn:
+            conn.execute(text("TRUNCATE TABLE audit_logs"))
+        print("FAIL: Truncate should have raised an exception")
+    except Exception as e:
+        print("SUCCESS: Truncate blocked!")
         print(str(e).splitlines()[0])
 
 if __name__ == "__main__":

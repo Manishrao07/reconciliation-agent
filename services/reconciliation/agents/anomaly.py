@@ -28,15 +28,26 @@ class AnomalyAgent:
             refunds = data["refunds"]
             
             # 1. Duplicate Payments
-            # Same amount, and date within window or same reference
             duplicates = set()
+            total_all_paid = sum((p.amount for p in payments), Decimal('0'))
+            is_overpaid = (total_all_paid - order.amount) > tol
+            
             for i in range(len(payments)):
                 for j in range(i + 1, len(payments)):
                     p1 = payments[i]
                     p2 = payments[j]
-                    if abs(p1.amount - p2.amount) <= tol:
-                        if p1.reference == p2.reference or abs(p1.date - p2.date) <= date_window:
-                            duplicates.add(p2) # mark p2 as duplicate
+                    
+                    same_ref = p1.reference and p2.reference and p1.reference == p2.reference
+                    
+                    if same_ref:
+                        if p2 not in duplicates:
+                            duplicates.add(p2)
+                            total_all_paid -= p2.amount
+                    elif abs(p1.amount - p2.amount) <= tol:
+                        if abs(p1.date - p2.date) <= date_window:
+                            if p2 not in duplicates and (total_all_paid - p2.amount) >= (order.amount - tol):
+                                duplicates.add(p2)
+                                total_all_paid -= p2.amount
                             
             for dup in duplicates:
                 discrepancies.append(Discrepancy(

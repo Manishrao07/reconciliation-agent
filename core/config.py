@@ -2,13 +2,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql+psycopg2://postgres:postgres@localhost:5432/reconciliation_db"
+    TEST_DATABASE_URL: str = "postgresql+psycopg2://postgres:postgres@localhost:5432/recon_test"
     SECRET_KEY: str = "super-secret-key-change-in-production"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
     LLM_PROVIDER: str = "mock"
-    OPENAI_API_KEY: str | None = None
     GEMINI_API_KEY: str | None = None
+    GEMINI_MODEL: str = "gemini-flash-latest"
     SEED_DEMO_PASSWORD: str = "demo123"
 
     AUTO_APPROVE_THRESHOLD: float = 1000.00

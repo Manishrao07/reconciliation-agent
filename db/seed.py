@@ -12,6 +12,7 @@ engine = create_engine(settings.DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def seed():
+    random.seed(42)
     # Make idempotent: if data exists, just skip or truncate
     with engine.begin() as conn:
         conn.execute(text("TRUNCATE TABLE refunds, payments, drcs, orders, customers CASCADE"))

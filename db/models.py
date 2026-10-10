@@ -93,6 +93,7 @@ class Refund(Base):
 class ReconciliationRun(Base):
     __tablename__ = "reconciliation_runs"
     id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     status = Column(String, nullable=False, default="IN_PROGRESS")
     started_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     completed_at = Column(DateTime, nullable=True)
@@ -120,6 +121,7 @@ class CorrectiveAction(Base):
     discrepancy_id = Column(Integer, ForeignKey("discrepancies.id"), nullable=False)
     suggested_action = Column(String, nullable=False)
     llm_explanation = Column(String, nullable=True)
+    explanation_source = Column(String, default="template", nullable=False)
     status = Column(Enum(ActionStatusEnum), default=ActionStatusEnum.PENDING, nullable=False)
     required_role = Column(Enum(RoleEnum), default=RoleEnum.NONE, nullable=False)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))

@@ -6,10 +6,14 @@ from services.reconciliation.agents.matching import MatchingAgent
 from services.reconciliation.agents.anomaly import AnomalyAgent
 from services.reconciliation.agents.resolution import ResolutionAgent
 
-def execute_reconciliation_run(db: Session, user_id: int = None):
-    # 1. Create run
-    run = ReconciliationRun(status="IN_PROGRESS")
-    db.add(run)
+def execute_reconciliation_run(db: Session, user_id: int = None, run_id: int = None):
+    if run_id:
+        run = db.query(ReconciliationRun).filter(ReconciliationRun.id == run_id).first()
+        run.status = "IN_PROGRESS"
+    else:
+        run = ReconciliationRun(status="IN_PROGRESS", user_id=user_id)
+        db.add(run)
+        
     db.commit()
     db.refresh(run)
     
@@ -49,6 +53,27 @@ def execute_reconciliation_run(db: Session, user_id: int = None):
         for a in actions:
             db.add(a)
         db.commit()
+        
+        # Refresh to get IDs
+        for a in actions:
+            db.refresh(a)
+            log_audit_action(
+                db=db,
+                action="ACTION_PROPOSED",
+                entity_type="CorrectiveAction",
+                entity_id=str(a.id),
+                user_id=user_id,
+                new_value={"suggested_action": a.suggested_action, "required_role": a.required_role.value}
+            )
+            if a.status.value == "APPROVED":
+                log_audit_action(
+                    db=db,
+                    action="ACTION_APPROVED",
+                    entity_type="CorrectiveAction",
+                    entity_id=str(a.id),
+                    user_id=None,
+                    new_value={"comments": "Auto-approved (< 1,000 threshold)"}
+                )
         
         # 5. Finalize run
         run.status = "COMPLETED"

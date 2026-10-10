@@ -27,6 +27,10 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     access_token = create_access_token(
         data={"sub": str(user.id)}, expires_delta=access_token_expires
     )
+    
+    from services.audit import log_audit_action
+    log_audit_action(db, "LOGIN", "User", str(user.id), user.id)
+    
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/me", response_model=UserResponse)
