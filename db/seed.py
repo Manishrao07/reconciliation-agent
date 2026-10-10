@@ -4,8 +4,9 @@ import random
 from datetime import datetime, timedelta, timezone
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
-from db.models import Base
+from db.models import Base, User, RoleEnum
 from core.config import settings
+from core.security import get_password_hash
 
 engine = create_engine(settings.DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -16,7 +17,19 @@ def seed():
         conn.execute(text("TRUNCATE TABLE refunds, payments, drcs, orders, customers CASCADE"))
         
     db = SessionLocal()
-    
+    # 0. Users
+    users = [
+        {"email": "admin@example.com", "role": RoleEnum.ADMIN},
+        {"email": "manager@example.com", "role": RoleEnum.FINANCE_MANAGER},
+        {"email": "auditor@example.com", "role": RoleEnum.AUDITOR},
+    ]
+    hashed_pwd = get_password_hash(settings.SEED_DEMO_PASSWORD)
+    for u in users:
+        existing = db.query(User).filter(User.email == u["email"]).first()
+        if not existing:
+            db.add(User(email=u["email"], hashed_password=hashed_pwd, role=u["role"]))
+    db.commit()
+
     # 1. Customers
     customers = []
     for i in range(1, 21):

@@ -33,34 +33,4 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
-@router.post("/seed_admin", response_model=UserResponse)
-def seed_admin(db: Session = Depends(get_db)):
-    # Helper for the demo to ensure at least one admin exists
-    admin = db.query(User).filter(User.email == "admin@example.com").first()
-    if admin:
-        return admin
-    
-    new_admin = User(
-        email="admin@example.com",
-        hashed_password=get_password_hash("admin123"),
-        role=RoleEnum.ADMIN
-    )
-    db.add(new_admin)
-    
-    manager = User(
-        email="manager@example.com",
-        hashed_password=get_password_hash("manager123"),
-        role=RoleEnum.FINANCE_MANAGER
-    )
-    db.add(manager)
-    
-    auditor = User(
-        email="auditor@example.com",
-        hashed_password=get_password_hash("auditor123"),
-        role=RoleEnum.AUDITOR
-    )
-    db.add(auditor)
-    
-    db.commit()
-    db.refresh(new_admin)
-    return new_admin
+

@@ -9,9 +9,12 @@ class Settings(BaseSettings):
     LLM_PROVIDER: str = "mock"
     OPENAI_API_KEY: str | None = None
     GEMINI_API_KEY: str | None = None
+    SEED_DEMO_PASSWORD: str = "demo123"
 
     AUTO_APPROVE_THRESHOLD: float = 1000.00
     MANAGER_APPROVE_THRESHOLD: float = 50000.00
+    AMOUNT_TOLERANCE: float = 0.05
+    DATE_WINDOW_DAYS: int = 5
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
