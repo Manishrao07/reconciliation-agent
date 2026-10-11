@@ -23,7 +23,7 @@ test:
 	./venv/bin/pytest --cov=. tests/
 
 test-docker:
-	docker compose exec -e PYTHONPATH=/app api pytest tests/ -v --cov --cov-config=.coveragerc
+	docker compose exec -T -e PYTHONPATH=/app api pytest tests/ -v --cov --cov-config=.coveragerc
 
 reset-demo:
 	docker compose down -v
