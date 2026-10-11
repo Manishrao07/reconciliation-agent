@@ -5,14 +5,13 @@ from api_client import get_discrepancies, get_discrepancy_detail, approve_action
 def render():
     st.title("Approval Queue & Audit Logs")
     
-    tab1, tab2 = st.tabs(["Approval Queue", "Audit Logs"])
+    tab1, tab2, tab3 = st.tabs(["Approval Queue", "Audit Logs", "Agent Decisions"])
     
     user = st.session_state["user"]
     
     with tab1:
         st.subheader("Pending Approvals")
-        
-        disc_data, _, err = get_discrepancies(status="PENDING")
+        disc_data, _, err = get_discrepancies(status="OPEN")
         if err:
             st.error("Failed to fetch pending discrepancies")
         else:
@@ -21,13 +20,22 @@ def render():
                 st.info("No pending approvals.")
             else:
                 for d in discrepancies:
+                    detail, _, d_err = get_discrepancy_detail(d['id'])
+                    if d_err or not detail.get("action"):
+                        continue
+                        
+                    action = detail["action"]
+                    if action['status'] != "PENDING":
+                        continue
+                        
+                    if user["role"] not in ["ADMIN", "AUDITOR"] and action["required_role"] != user["role"]:
+                        continue
+                        
+                    # Admin can only see ADMIN roles
+                    if user["role"] == "ADMIN" and action["required_role"] not in ["ADMIN", "FINANCE_MANAGER"]:
+                        continue
+
                     with st.expander(f"{d['type']} - {d['severity']} (ID: {d['id']})"):
-                        detail, _, d_err = get_discrepancy_detail(d['id'])
-                        if d_err or not detail.get("action"):
-                            st.error("Failed to load action details.")
-                            continue
-                            
-                        action = detail["action"]
                         st.write(f"**Description:** {d['description']}")
                         st.write(f"**Suggested Action:** {action['suggested_action']}")
                         st.write(f"**Required Role:** {action['required_role']}")
@@ -77,12 +85,48 @@ def render():
             if not logs:
                 st.info("No logs found.")
             else:
+                df = pd.DataFrame(logs)
+                if "timestamp" in df.columns:
+                    df["timestamp"] = pd.to_datetime(df["timestamp"])
                 st.dataframe(
-                    pd.DataFrame(logs),
+                    df,
                     column_config={
                         "timestamp": st.column_config.DatetimeColumn("Time", format="D MMM YYYY, h:mm a"),
                         "old_value": st.column_config.TextColumn("Old Value"),
                         "new_value": st.column_config.TextColumn("New Value")
+                    },
+                    hide_index=True
+                )
+
+    with tab3:
+        st.subheader("Agent Decisions")
+        from api_client import get_agent_decisions
+        import json
+        if st.button("Refresh Decisions"):
+            pass
+            
+        decisions, _, err = get_agent_decisions(limit=50)
+        if err:
+            st.error("Failed to fetch agent decisions")
+        else:
+            if not decisions:
+                st.info("No agent decisions found.")
+            else:
+                df = pd.DataFrame(decisions)
+                if "created_at" in df.columns:
+                    df["created_at"] = pd.to_datetime(df["created_at"])
+                
+                # Convert dicts to strings for display
+                for col in ["input_data", "reasoning", "output_data"]:
+                    if col in df.columns:
+                        df[col] = df[col].apply(lambda x: json.dumps(x) if isinstance(x, dict) else x)
+
+                st.dataframe(
+                    df,
+                    column_config={
+                        "created_at": st.column_config.DatetimeColumn("Time", format="D MMM YYYY, h:mm a"),
+                        "confidence": st.column_config.NumberColumn("Confidence (%)", format="%.2f"),
+                        "latency_ms": st.column_config.NumberColumn("Latency (ms)")
                     },
                     hide_index=True
                 )

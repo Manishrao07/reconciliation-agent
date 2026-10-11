@@ -54,6 +54,7 @@ def process_approval(
     db.add(approval)
     
     action.status = ActionStatusEnum[status]
+    discrepancy.status = "RESOLVED" if status == "APPROVED" else "REJECTED"
     db.commit()
     db.refresh(action)
     db.refresh(approval)

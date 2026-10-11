@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     LLM_PROVIDER: str = "mock"
     GEMINI_API_KEY: str | None = None
     GEMINI_MODEL: str = "gemini-flash-latest"
+    GROQ_API_KEY: str | None = None
     SEED_DEMO_PASSWORD: str = "demo123"
 
     AUTO_APPROVE_THRESHOLD: float = 1000.00

@@ -10,8 +10,8 @@ def get_headers():
         return {"Authorization": f"Bearer {token}"}
     return {}
 
-def handle_response(res):
-    if res.status_code == 401:
+def handle_response(res, is_login=False):
+    if res.status_code == 401 and not is_login:
         st.session_state["token"] = None
         st.session_state["user"] = None
         st.error("Session expired. Please log in again.")
@@ -25,12 +25,18 @@ def handle_response(res):
     return res.json(), res.status_code, None
 
 def login(email, password):
-    res = requests.post(f"{API_URL}/api/v1/auth/login", data={"username": email, "password": password})
-    return handle_response(res)
+    try:
+        res = requests.post(f"{API_URL}/api/v1/auth/login", data={"username": email, "password": password})
+        return handle_response(res, is_login=True)
+    except requests.exceptions.RequestException:
+        return None, 503, "Cannot reach the API. Please try again."
 
 def get_me():
-    res = requests.get(f"{API_URL}/api/v1/auth/me", headers=get_headers())
-    return handle_response(res)
+    try:
+        res = requests.get(f"{API_URL}/api/v1/auth/me", headers=get_headers())
+        return handle_response(res)
+    except requests.exceptions.RequestException:
+        return None, 503, "Cannot reach the API. Please try again."
 
 def upload_csv(endpoint, file):
     files = {"file": (file.name, file, "text/csv")}
@@ -72,4 +78,8 @@ def reject_action(disc_id, comments=""):
 def get_audit_logs(limit=50):
     # We don't have an audit endpoint! I'll need to create one!
     res = requests.get(f"{API_URL}/audit?limit={limit}", headers=get_headers())
+    return handle_response(res)
+
+def get_agent_decisions(limit=50):
+    res = requests.get(f"{API_URL}/audit/agent-decisions?limit={limit}", headers=get_headers())
     return handle_response(res)

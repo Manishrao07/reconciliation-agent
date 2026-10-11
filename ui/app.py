@@ -15,12 +15,20 @@ def do_login():
     if st.button("Login"):
         data, status, err = login(email, password)
         if err:
-            st.error(f"Login failed: {err}")
+            if status == 401 or "Incorrect username or password" in str(err):
+                st.error("Invalid email or password")
+            else:
+                st.error(f"Login failed: {err}")
         else:
             st.session_state["token"] = data["access_token"]
-            st.session_state["user"] = data["user"]
-            st.success("Logged in successfully!")
-            st.rerun()
+            me_data, me_status, me_err = get_me()
+            if me_err:
+                st.error(f"Failed to fetch user info: {me_err}")
+                st.session_state["token"] = None
+            else:
+                st.session_state["user"] = me_data
+                st.success("Logged in successfully!")
+                st.rerun()
 
 def do_logout():
     st.session_state["token"] = None
@@ -29,6 +37,7 @@ def do_logout():
 
 if not st.session_state["token"]:
     do_login()
+    st.stop()
 else:
     user = st.session_state["user"]
     st.sidebar.write(f"Logged in as **{user['email']}** ({user['role']})")
@@ -37,20 +46,17 @@ else:
         
     pages = ["Dashboard", "Upload & Run", "Approval Queue & Audit"]
     
-    # Hide pages based on role if necessary
-    # Example: Auditor doesn't need to upload or run? Well, requirements say "Hide pages/buttons the role cannot use".
     if user['role'] == "AUDITOR":
-        # Auditor can probably view Dashboard and Audit, but maybe not Upload? Let's hide Upload & Run for Auditor.
         pages.remove("Upload & Run")
         
     selection = st.sidebar.radio("Navigation", pages)
     
     if selection == "Dashboard":
-        import pages.dashboard as dashboard
+        import views.dashboard as dashboard
         dashboard.render()
     elif selection == "Upload & Run":
-        import pages.upload_run as upload_run
+        import views.upload_run as upload_run
         upload_run.render()
     elif selection == "Approval Queue & Audit":
-        import pages.approvals_audit as approvals_audit
+        import views.approvals_audit as approvals_audit
         approvals_audit.render()

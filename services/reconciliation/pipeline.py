@@ -40,6 +40,14 @@ def execute_reconciliation_run(db: Session, user_id: int = None, run_id: int = N
         # Flush to get IDs for discrepancies
         for d in discrepancies:
             db.add(d)
+            
+        run.total_records = total_records
+        if total_records > 0:
+            match_rate = ((total_records - len(discrepancies)) / total_records) * 100
+            run.match_rate = max(0, match_rate)
+        else:
+            run.match_rate = 100.0
+            
         db.commit()
         
         # Refresh to get IDs
@@ -78,13 +86,6 @@ def execute_reconciliation_run(db: Session, user_id: int = None, run_id: int = N
         # 5. Finalize run
         run.status = "COMPLETED"
         run.completed_at = datetime.now(timezone.utc)
-        run.total_records = total_records
-        
-        if total_records > 0:
-            match_rate = ((total_records - len(discrepancies)) / total_records) * 100
-            run.match_rate = max(0, match_rate)
-        else:
-            run.match_rate = 100.0
             
         db.commit()
         
