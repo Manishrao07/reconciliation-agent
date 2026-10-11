@@ -3,8 +3,8 @@ import { ShieldCheck, Lock, Mail, ArrowRight, Loader2, UserCheck, KeyRound } fro
 import { api } from '../services/api';
 
 export default function LoginModal({ onLoginSuccess }) {
-  const [email, setEmail] = useState('manager@example.com');
-  const [password, setPassword] = useState('Demo#Pass123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -114,8 +114,10 @@ export default function LoginModal({ onLoginSuccess }) {
                 type="email"
                 className="input-field"
                 style={{ width: '100%', paddingLeft: '2.5rem' }}
+                placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="username"
                 required
               />
               <Mail size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
@@ -129,8 +131,10 @@ export default function LoginModal({ onLoginSuccess }) {
                 type="password"
                 className="input-field"
                 style={{ width: '100%', paddingLeft: '2.5rem' }}
+                placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
                 required
               />
               <KeyRound size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
