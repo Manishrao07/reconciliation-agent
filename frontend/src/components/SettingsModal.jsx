@@ -106,6 +106,26 @@ export default function SettingsModal({ onClose }) {
           </div>
         )}
 
+        {/* Reset Store Action */}
+        <div style={{ marginTop: '1.25rem', marginBottom: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
+          <div>
+            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)' }}>Demo Data Clean Slate</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Wipe all runs and start with an empty 0-record dashboard</div>
+          </div>
+          <button 
+            type="button" 
+            className="btn btn-secondary" 
+            onClick={async () => {
+              await api.resetToCleanState();
+              onClose();
+              window.location.reload();
+            }}
+            style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem', color: 'var(--accent-rose)', borderColor: 'rgba(239, 68, 68, 0.3)', whiteSpace: 'nowrap' }}
+          >
+            Reset to Clean State
+          </button>
+        </div>
+
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <button 
             type="button" 
@@ -113,7 +133,7 @@ export default function SettingsModal({ onClose }) {
             onClick={handleReset}
             style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}
           >
-            Reset Default
+            Reset Default URL
           </button>
 
           <div style={{ display: 'flex', gap: '0.5rem' }}>

@@ -1,38 +1,23 @@
 import { initialMockData } from './mockData';
 
-const STORAGE_KEY = 'aequitas_demo_store_v6';
+const STORAGE_KEY = 'aequitas_recon_v10';
 
 const getStore = () => {
   const existing = localStorage.getItem(STORAGE_KEY);
   if (existing) {
     try {
-      const store = JSON.parse(existing);
-      let changed = false;
-      // Auto-correct runs created during demo/testing:
-      // If run >= 19 was created while logged in or during demo ingestion tests,
-      // it was initiated by Finance Manager (user_id: 2) unless explicitly created as ADMIN.
-      // This ensures that when System Admin (user_id: 1) logs in to review,
-      // Admin is recognized as the Checker and can approve ADMIN-level actions.
-      if (store.runs && store.runs.length > 0) {
-        store.runs.forEach(r => {
-          if (r.id >= 19 && (!r.creator_role || r.creator_role === 'FINANCE_MANAGER')) {
-            if (r.user_id !== 2) {
-              r.user_id = 2;
-              r.creator_role = 'FINANCE_MANAGER';
-              changed = true;
-            }
-          }
-        });
-      }
-      if (changed) {
-        saveStore(store);
-      }
-      return store;
+      return JSON.parse(existing);
     } catch {
       // fallback
     }
   }
-  const initial = JSON.parse(JSON.stringify(initialMockData));
+  // Start with clean slate: 0 runs, 0 discrepancies, awaiting first run
+  const initial = {
+    runs: [],
+    discrepancies: [],
+    agentDecisions: [],
+    auditLogs: []
+  };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
   return initial;
 };
@@ -108,7 +93,7 @@ export const mockStorage = {
     const currentUser = await mockStorage.getMe();
     const creatorId = (currentUser && currentUser.id) ? currentUser.id : 2;
     const creatorRole = (currentUser && currentUser.role) ? currentUser.role : 'FINANCE_MANAGER';
-    const newId = (store.runs && store.runs.length > 0 ? store.runs[0].id : 18) + 1;
+    const newId = (store.runs && store.runs.length > 0 ? store.runs[0].id : 0) + 1;
     const newRun = {
       id: newId,
       status: "COMPLETED",
@@ -129,11 +114,11 @@ export const mockStorage = {
     store.discrepancies = freshDiscrepancies;
 
     // Link agent decisions to this new run
-    if (store.agentDecisions && store.agentDecisions.length > 0) {
-      store.agentDecisions.forEach(dec => {
-        dec.run_id = newId;
-      });
-    }
+    const freshDecisions = JSON.parse(JSON.stringify(initialMockData.agentDecisions || []));
+    freshDecisions.forEach(dec => {
+      dec.run_id = newId;
+    });
+    store.agentDecisions = freshDecisions;
 
     // Append audit log for the ingestion run
     if (!store.auditLogs) store.auditLogs = [];
@@ -161,16 +146,7 @@ export const mockStorage = {
     let items = [...(store.discrepancies || [])];
 
     if (params.run_id) {
-      const runFiltered = items.filter(d => d.run_id === Number(params.run_id));
-      if (runFiltered.length > 0) {
-        items = runFiltered;
-      } else {
-        // Fallback / Self-healing: if stored items don't have this run_id,
-        // attach them so the demo dashboard never shows 0 exceptions
-        items.forEach(d => { d.run_id = Number(params.run_id); });
-        store.discrepancies = items;
-        saveStore(store);
-      }
+      items = items.filter(d => d.run_id === Number(params.run_id));
     }
     if (params.type) {
       items = items.filter(d => d.type === params.type);
@@ -323,5 +299,16 @@ export const mockStorage = {
   getAgentDecisions: async (limit = 50) => {
     const store = getStore();
     return (store.agentDecisions || []).slice(0, Number(limit) || 50);
+  },
+
+  resetToCleanState: async () => {
+    const initial = {
+      runs: [],
+      discrepancies: [],
+      agentDecisions: [],
+      auditLogs: []
+    };
+    saveStore(initial);
+    return { message: "Store reset to clean state" };
   }
 };

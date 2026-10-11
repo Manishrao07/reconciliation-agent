@@ -267,4 +267,8 @@ export const api = {
       return mockStorage.getAgentDecisions(limit);
     }
   },
+
+  resetToCleanState: async () => {
+    return mockStorage.resetToCleanState();
+  },
 };

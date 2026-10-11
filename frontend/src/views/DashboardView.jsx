@@ -147,6 +147,35 @@ export default function DashboardView({ onGoToUpload, onGoToApprovals }) {
         </div>
       )}
 
+      {/* Fresh Clean Slate Banner */}
+      {runs.length === 0 && (
+        <div className="glass-panel" style={{ 
+          padding: '1.5rem 1.75rem', 
+          marginBottom: '1.5rem', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between',
+          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.06) 100%)',
+          border: '1px solid rgba(99, 102, 241, 0.3)',
+          borderRadius: 'var(--radius-lg)',
+          gap: '1.5rem',
+          flexWrap: 'wrap'
+        }}>
+          <div style={{ maxWidth: '680px' }}>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.35rem' }}>
+              Clean Slate Initialized: Ready for First Reconciliation Run
+            </h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.5, margin: 0 }}>
+              No previous runs exist in this session. Head to <b>Ingest & Run</b> to upload multi-source feeds (Orders, DRCs, Payments, Refunds) or load sample fintech datasets, then execute the autonomous AI matching pipeline.
+            </p>
+          </div>
+          <button className="btn btn-primary" onClick={onGoToUpload} style={{ padding: '0.65rem 1.25rem', whiteSpace: 'nowrap' }}>
+            <Play size={15} />
+            <span>Go to Ingest & Run</span>
+          </button>
+        </div>
+      )}
+
       {/* KPI Cards Grid */}
       <div className="stat-grid">
         <StatCard
