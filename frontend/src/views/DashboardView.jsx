@@ -30,11 +30,16 @@ export default function DashboardView({ onGoToUpload, onGoToApprovals }) {
 
       if (runsData && runsData.length > 0) {
         const latestRunId = runsData[0].id;
-        const discData = await api.getDiscrepancies({ run_id: latestRunId, limit: 100 });
-        const items = discData.data || discData || [];
+        let discData = await api.getDiscrepancies({ run_id: latestRunId, limit: 100 });
+        let items = discData.data || discData || [];
+        if (items.length === 0) {
+          discData = await api.getDiscrepancies({ limit: 100 });
+          items = discData.data || discData || [];
+        }
         setDiscrepancies(items);
       } else {
-        setDiscrepancies([]);
+        const discData = await api.getDiscrepancies({ limit: 100 });
+        setDiscrepancies(discData.data || discData || []);
       }
     } catch (err) {
       console.error("Dashboard fetch error:", err);

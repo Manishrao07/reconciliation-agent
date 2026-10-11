@@ -1,6 +1,6 @@
 import { initialMockData } from './mockData';
 
-const STORAGE_KEY = 'aequitas_demo_store_v3';
+const STORAGE_KEY = 'aequitas_demo_store_v4';
 
 const getStore = () => {
   const existing = localStorage.getItem(STORAGE_KEY);
@@ -93,6 +93,34 @@ export const mockStorage = {
       completed_at: new Date().toISOString()
     };
     store.runs.unshift(newRun);
+
+    // Refresh and link discrepancies for this new run
+    const freshDiscrepancies = JSON.parse(JSON.stringify(initialMockData.discrepancies || []));
+    freshDiscrepancies.forEach(d => {
+      d.run_id = newId;
+    });
+    store.discrepancies = freshDiscrepancies;
+
+    // Link agent decisions to this new run
+    if (store.agentDecisions && store.agentDecisions.length > 0) {
+      store.agentDecisions.forEach(dec => {
+        dec.run_id = newId;
+      });
+    }
+
+    // Append audit log for the ingestion run
+    if (!store.auditLogs) store.auditLogs = [];
+    store.auditLogs.unshift({
+      id: Date.now(),
+      action: "RECONCILIATION_RUN_COMPLETED",
+      entity_type: "ReconciliationRun",
+      entity_id: newId,
+      user_id: 1,
+      old_value: { status: "INGESTING" },
+      new_value: { status: "COMPLETED", total_records: 198, match_rate: 73.23, discrepancies_detected: freshDiscrepancies.length },
+      timestamp: new Date().toISOString()
+    });
+
     saveStore(store);
     return { message: "Run triggered", run_id: newId };
   },
@@ -106,7 +134,16 @@ export const mockStorage = {
     let items = [...(store.discrepancies || [])];
 
     if (params.run_id) {
-      items = items.filter(d => d.run_id === Number(params.run_id));
+      const runFiltered = items.filter(d => d.run_id === Number(params.run_id));
+      if (runFiltered.length > 0) {
+        items = runFiltered;
+      } else {
+        // Fallback / Self-healing: if stored items don't have this run_id,
+        // attach them so the demo dashboard never shows 0 exceptions
+        items.forEach(d => { d.run_id = Number(params.run_id); });
+        store.discrepancies = items;
+        saveStore(store);
+      }
     }
     if (params.type) {
       items = items.filter(d => d.type === params.type);
