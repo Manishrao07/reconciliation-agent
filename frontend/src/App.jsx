@@ -115,30 +115,30 @@ export default function App() {
       {/* Main View Router */}
       <main style={{ flex: 1, paddingBottom: '3rem' }}>
         <ErrorBoundary>
-          {activeTab === 'dashboard' && (
+          <div style={{ display: activeTab === 'dashboard' ? 'block' : 'none' }}>
             <DashboardView 
               onGoToUpload={() => setActiveTab('upload')} 
               onGoToApprovals={() => setActiveTab('approvals')} 
             />
-          )}
+          </div>
 
-          {activeTab === 'upload' && (
+          <div style={{ display: activeTab === 'upload' ? 'block' : 'none' }}>
             <UploadRunView 
               onRunCompleted={() => setActiveTab('approvals')} 
             />
-          )}
+          </div>
 
-          {activeTab === 'approvals' && (
+          <div style={{ display: activeTab === 'approvals' ? 'block' : 'none' }}>
             <ApprovalsView user={user} />
-          )}
+          </div>
 
-          {activeTab === 'audit' && (
+          <div style={{ display: activeTab === 'audit' ? 'block' : 'none' }}>
             <AuditView />
-          )}
+          </div>
 
-          {activeTab === 'agent' && (
+          <div style={{ display: activeTab === 'agent' ? 'block' : 'none' }}>
             <AgentDecisionsView />
-          )}
+          </div>
         </ErrorBoundary>
       </main>
 

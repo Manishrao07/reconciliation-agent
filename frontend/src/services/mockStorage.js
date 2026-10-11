@@ -1,6 +1,6 @@
 import { initialMockData } from './mockData';
 
-const STORAGE_KEY = 'aequitas_demo_store_v2';
+const STORAGE_KEY = 'aequitas_demo_store_v3';
 
 const getStore = () => {
   const existing = localStorage.getItem(STORAGE_KEY);

@@ -186,7 +186,7 @@ export default function ApprovalsView({ user }) {
       </div>
 
       {/* Queue Items */}
-      {loading ? (
+      {loading && discrepancies.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-muted)' }}>
           Loading exception approvals...
         </div>

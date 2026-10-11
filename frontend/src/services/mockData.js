@@ -57,7 +57,7 @@ export const initialMockData = {
       "action": {
         "id": 71,
         "suggested_action": "INVESTIGATE_ORPHAN",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 81.24 has no matching order)",
+        "llm_explanation": "Autonomous Gateway Audit: Unmatched settlement of $81.24 captured at payment gateway (Ref: PAY0205) has no correlating sales order in the core merchant ledger. Analysis indicates customer completed gateway payment but merchant cart session timed out before order placement. Suggested Action: Hold funds in escrow and initiate merchant dispute or transaction validation.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "ADMIN"
@@ -78,7 +78,7 @@ export const initialMockData = {
       "action": {
         "id": 70,
         "suggested_action": "INVESTIGATE_ORPHAN",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 175.37 has no matching order)",
+        "llm_explanation": "Autonomous Gateway Audit: Unmatched settlement of $175.37 captured at payment gateway (Ref: PAY0204) has no correlating sales order in the core merchant ledger. Analysis indicates customer completed gateway payment but merchant cart session timed out before order placement. Suggested Action: Hold funds in escrow and initiate merchant dispute or transaction validation.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -99,7 +99,7 @@ export const initialMockData = {
       "action": {
         "id": 69,
         "suggested_action": "INVESTIGATE_ORPHAN",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 229.31 has no matching order)",
+        "llm_explanation": "Autonomous Gateway Audit: Unmatched settlement of $229.31 captured at payment gateway (Ref: PAY0203) has no correlating sales order in the core merchant ledger. Analysis indicates customer completed gateway payment but merchant cart session timed out before order placement. Suggested Action: Hold funds in escrow and initiate merchant dispute or transaction validation.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -120,7 +120,7 @@ export const initialMockData = {
       "action": {
         "id": 68,
         "suggested_action": "INVESTIGATE_ORPHAN",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 347.01 has no matching order)",
+        "llm_explanation": "Autonomous Gateway Audit: Unmatched settlement of $347.01 captured at payment gateway (Ref: PAY0202) has no correlating sales order in the core merchant ledger. Analysis indicates customer completed gateway payment but merchant cart session timed out before order placement. Suggested Action: Hold funds in escrow and initiate merchant dispute or transaction validation.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "ADMIN"
@@ -141,7 +141,7 @@ export const initialMockData = {
       "action": {
         "id": 67,
         "suggested_action": "INVESTIGATE_ORPHAN",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 150.32 has no matching order)",
+        "llm_explanation": "Autonomous Gateway Audit: Unmatched settlement of $150.32 captured at payment gateway (Ref: PAY0201) has no correlating sales order in the core merchant ledger. Analysis indicates customer completed gateway payment but merchant cart session timed out before order placement. Suggested Action: Hold funds in escrow and initiate merchant dispute or transaction validation.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -162,7 +162,7 @@ export const initialMockData = {
       "action": {
         "id": 66,
         "suggested_action": "ESCALATE",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 201.90 exceeds payment 101.90)",
+        "llm_explanation": "Autonomous Fraud Guard: Refund transaction of $201.90 exceeds the original verified payment total of $101.90. This variance indicates duplicate refund issuance or unauthorized credit adjustment. Suggested Action: Place immediate freeze on refund disbursement and escalate to Senior Compliance.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -183,7 +183,7 @@ export const initialMockData = {
       "action": {
         "id": 65,
         "suggested_action": "ESCALATE",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 299.02 exceeds payment 199.02)",
+        "llm_explanation": "Autonomous Fraud Guard: Refund transaction of $299.02 exceeds the original verified payment total of $199.02. This variance indicates duplicate refund issuance or unauthorized credit adjustment. Suggested Action: Place immediate freeze on refund disbursement and escalate to Senior Compliance.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "ADMIN"
@@ -204,7 +204,7 @@ export const initialMockData = {
       "action": {
         "id": 64,
         "suggested_action": "ESCALATE",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 455.78 exceeds payment 355.78)",
+        "llm_explanation": "Autonomous Fraud Guard: Refund transaction of $455.78 exceeds the original verified payment total of $355.78. This variance indicates duplicate refund issuance or unauthorized credit adjustment. Suggested Action: Place immediate freeze on refund disbursement and escalate to Senior Compliance.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -225,7 +225,7 @@ export const initialMockData = {
       "action": {
         "id": 63,
         "suggested_action": "ESCALATE",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 438.67 exceeds payment 338.67)",
+        "llm_explanation": "Autonomous Fraud Guard: Refund transaction of $438.67 exceeds the original verified payment total of $338.67. This variance indicates duplicate refund issuance or unauthorized credit adjustment. Suggested Action: Place immediate freeze on refund disbursement and escalate to Senior Compliance.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -246,7 +246,7 @@ export const initialMockData = {
       "action": {
         "id": 62,
         "suggested_action": "ESCALATE",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 498.00 exceeds payment 398.00)",
+        "llm_explanation": "Autonomous Fraud Guard: Refund transaction of $498.00 exceeds the original verified payment total of $398.00. This variance indicates duplicate refund issuance or unauthorized credit adjustment. Suggested Action: Place immediate freeze on refund disbursement and escalate to Senior Compliance.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "ADMIN"
@@ -267,7 +267,7 @@ export const initialMockData = {
       "action": {
         "id": 61,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment received but no DRC found)",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0190, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -288,7 +288,7 @@ export const initialMockData = {
       "action": {
         "id": 60,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment received but no DRC found)",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0189, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -309,7 +309,7 @@ export const initialMockData = {
       "action": {
         "id": 59,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment received but no DRC found)",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0188, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -330,7 +330,7 @@ export const initialMockData = {
       "action": {
         "id": 58,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "The system shows that a payment was received for order 222.14, but it cannot locate the required DRC (document) that confirms the transaction. This mismatch means the payment hasn\u2019t been fully reconciled. To resolve it, you should request the missing document from the payer or the payment processor so the payment can be matched and the order can be closed.",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0187, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -351,7 +351,7 @@ export const initialMockData = {
       "action": {
         "id": 57,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment received but no DRC found)",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0186, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -372,7 +372,7 @@ export const initialMockData = {
       "action": {
         "id": 56,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment received but no DRC found)",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0185, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -393,7 +393,7 @@ export const initialMockData = {
       "action": {
         "id": 55,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment received but no DRC found)",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0184, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -414,7 +414,7 @@ export const initialMockData = {
       "action": {
         "id": 54,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment received but no DRC found)",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0183, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -435,7 +435,7 @@ export const initialMockData = {
       "action": {
         "id": 53,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment received but no DRC found)",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0182, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -456,7 +456,7 @@ export const initialMockData = {
       "action": {
         "id": 52,
         "suggested_action": "REQUEST_DOCUMENT",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment received but no DRC found)",
+        "llm_explanation": "Autonomous Logistics Verification: Confirmed customer payment exists for order ORD0181, but warehouse Delivery Receipt Confirmation (DRC) is missing past the 72-hour fulfillment SLA. Inventory tracking shows items dispatched without final barcode scan. Suggested Action: Dispatch inquiry to warehouse fulfillment for physical bill of lading proof.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -477,7 +477,7 @@ export const initialMockData = {
       "action": {
         "id": 51,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "The customer paid $420.31, but the order was for $470.31, so the payment is $50 short. This is an underpayment. To resolve it, the customer should be asked to send the missing $50 so the order can be fully paid.",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $420.31 against invoiced order total of $470.31, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -498,7 +498,7 @@ export const initialMockData = {
       "action": {
         "id": 50,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Underpayment. Expected 489.53, got 439.53)",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $439.53 against invoiced order total of $489.53, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -519,7 +519,7 @@ export const initialMockData = {
       "action": {
         "id": 49,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Underpayment. Expected 453.65, got 403.65)",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $403.65 against invoiced order total of $453.65, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -540,7 +540,7 @@ export const initialMockData = {
       "action": {
         "id": 48,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Underpayment. Expected 241.47, got 191.47)",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $191.47 against invoiced order total of $241.47, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -561,7 +561,7 @@ export const initialMockData = {
       "action": {
         "id": 47,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Underpayment. Expected 372.83, got 322.83)",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $322.83 against invoiced order total of $372.83, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -582,7 +582,7 @@ export const initialMockData = {
       "action": {
         "id": 46,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Underpayment. Expected 459.57, got 409.57)",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $409.57 against invoiced order total of $459.57, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -603,7 +603,7 @@ export const initialMockData = {
       "action": {
         "id": 45,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Underpayment. Expected 223.30, got 173.30)",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $173.30 against invoiced order total of $223.30, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -624,7 +624,7 @@ export const initialMockData = {
       "action": {
         "id": 44,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Underpayment. Expected 271.91, got 221.91)",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $221.91 against invoiced order total of $271.91, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -645,7 +645,7 @@ export const initialMockData = {
       "action": {
         "id": 43,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Underpayment. Expected 333.00, got 283.00)",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $283.00 against invoiced order total of $333.00, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -666,7 +666,7 @@ export const initialMockData = {
       "action": {
         "id": 42,
         "suggested_action": "REQUEST_FUNDS",
-        "llm_explanation": "The customer\u2019s payment was $50 less than the order amount. The system recorded a payment of $268.24 when the order was $318.24, so the order is underpaid by $50.00. To resolve this, the customer should be asked to send the missing $50.00 so the order can be fully paid and processed.",
+        "llm_explanation": "Autonomous Ledger Audit: Customer remitted $268.24 against invoiced order total of $318.24, creating an uncollected shortfall of $50.00. Analysis suggests unexpected bank wire transfer fee deduction or partial remittance. Suggested Action: Trigger automated dunning invoice to customer requesting remainder.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -687,7 +687,7 @@ export const initialMockData = {
       "action": {
         "id": 41,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 83.86, got 133.86)",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $133.86 exceeds invoiced order total of $83.86 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -708,7 +708,7 @@ export const initialMockData = {
       "action": {
         "id": 40,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 302.41, got 352.41)",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $352.41 exceeds invoiced order total of $302.41 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -729,7 +729,7 @@ export const initialMockData = {
       "action": {
         "id": 39,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 298.26, got 348.26)",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $348.26 exceeds invoiced order total of $298.26 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -750,7 +750,7 @@ export const initialMockData = {
       "action": {
         "id": 38,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 122.71, got 172.71)",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $172.71 exceeds invoiced order total of $122.71 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -771,7 +771,7 @@ export const initialMockData = {
       "action": {
         "id": 37,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 336.70, got 386.70)",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $386.70 exceeds invoiced order total of $336.70 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "ADMIN"
@@ -792,7 +792,7 @@ export const initialMockData = {
       "action": {
         "id": 36,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 51.60, got 101.60)",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $101.60 exceeds invoiced order total of $51.60 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -813,7 +813,7 @@ export const initialMockData = {
       "action": {
         "id": 35,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 423.21, got 473.21)",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $473.21 exceeds invoiced order total of $423.21 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -834,7 +834,7 @@ export const initialMockData = {
       "action": {
         "id": 34,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "The customer paid $141.53 for an order that was only $91.53, so they overpaid by $50.00. To correct this, we should give the customer a refund of the extra $50.00.",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $141.53 exceeds invoiced order total of $91.53 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -855,7 +855,7 @@ export const initialMockData = {
       "action": {
         "id": 33,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "The customer paid $507.40 for an order that was only $457.40, so there is an overpayment of $50.00. To correct this, a refund of $50.00 should be issued to the customer. The payment was recorded under Payment ID PAY0172, and the order is ORD0162.",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $507.40 exceeds invoiced order total of $457.40 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "FINANCE_MANAGER"
@@ -876,7 +876,7 @@ export const initialMockData = {
       "action": {
         "id": 32,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "The customer paid $327.43 for an order that was only $277.43, so they overpaid by $50.00. To correct this, we should issue a refund of $50.00 back to the customer. This will bring the total paid in line with the order amount.",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $327.43 exceeds invoiced order total of $277.43 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -897,7 +897,7 @@ export const initialMockData = {
       "action": {
         "id": 31,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "The system found that the same amount was charged twice for the same order. Because the payment matches the order total exactly, it looks like a duplicate transaction. To correct this, the second payment should be reversed so the customer is not overcharged.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $141.62 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "PENDING",
         "required_role": "ADMIN"
@@ -918,7 +918,7 @@ export const initialMockData = {
       "action": {
         "id": 30,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "The system found that the same amount of $144.78 was charged twice for the same order. The second charge is a duplicate payment. To correct this, you should reverse the duplicate payment. No refund is needed because the duplicate payment will be reversed.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $144.78 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -939,7 +939,7 @@ export const initialMockData = {
       "action": {
         "id": 29,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "The system found that the same amount of 172.56 was charged twice for order ORD0158. This means the customer was billed twice for the same purchase. To fix the issue, we should reverse the second payment so the customer is not overcharged.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $172.56 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -960,7 +960,7 @@ export const initialMockData = {
       "action": {
         "id": 28,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "It looks like the same payment of $384.09 was recorded twice. Because the order amount and the payment amount match, the system thinks you paid the full amount twice. To fix this, you should reverse the duplicate payment so that only one payment remains on the order.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $384.09 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -981,7 +981,7 @@ export const initialMockData = {
       "action": {
         "id": 27,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "The system found that the payment of $169.01 was processed twice for the same order (ORD0156). Because the payment amount matches the order total, the second charge is a duplicate. To correct this, the duplicate payment (payment ID PAY0162 with reference REF0162) should be reversed so the customer is not overcharged.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $169.01 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -1002,7 +1002,7 @@ export const initialMockData = {
       "action": {
         "id": 26,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "The system found that the same amount of 472.52 was charged twice for Order\u202fORD0155. This duplicate charge was made with Payment\u202fID\u202fPAY0160. To correct the mistake, the duplicate payment should be reversed so the customer is not overcharged.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $472.52 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -1023,7 +1023,7 @@ export const initialMockData = {
       "action": {
         "id": 25,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "The payment was processed twice for the same order, so the customer was charged 184.72 twice. To fix this, you should reverse the duplicate payment so the customer is refunded the extra amount and the order total stays correct.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $184.72 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -1044,7 +1044,7 @@ export const initialMockData = {
       "action": {
         "id": 24,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "The system detected that the same amount of 53.52 was charged twice for order ORD0153. The duplicate charge was recorded as payment ID PAY0156 with payment reference number REF0156. To correct the discrepancy, you should reverse that payment so the customer is not overcharged.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $53.52 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -1065,7 +1065,7 @@ export const initialMockData = {
       "action": {
         "id": 23,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "The payment of $325.25 was recorded twice, matching the order total exactly. This duplicate entry means the customer was charged twice for the same order. To correct the issue, you should reverse the second payment (payment ID PAY0154) so the customer receives a refund for the duplicate amount.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $325.25 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -1086,7 +1086,7 @@ export const initialMockData = {
       "action": {
         "id": 22,
         "suggested_action": "REVERSE_PAYMENT",
-        "llm_explanation": "The system found that the same amount of $425.19 was charged twice for order ORD0151. This duplicate charge happened because the payment was processed more than once, likely due to a system glitch or a double submission by the customer. To correct the issue, you should reverse the second payment so the customer is not overcharged. Once the reversal is completed, the order will reflect the correct single payment of $425.19.",
+        "llm_explanation": "Autonomous Velocity Sentry: Multiple identical payment transactions of $425.19 captured within 90 seconds under the same customer cart. Analysis confirms rapid retry during gateway checkout. Suggested Action: Execute gateway reversal on secondary transaction authorization.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -1107,7 +1107,7 @@ export const initialMockData = {
       "action": {
         "id": 21,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "The customer paid $65,000, but the order was only for $60,000, so there is a $5,000 overpayment. To correct this, you should issue a refund of $5,000 back to the customer. The payment was recorded under the ID PAY_ADMIN and the order is TEST_ADMIN. The payment reference is REF3.",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $65000.00 exceeds invoiced order total of $60000.00 by $5000.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -1128,7 +1128,7 @@ export const initialMockData = {
       "action": {
         "id": 20,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "The payment of $5,500 was $500 more than the $5,000 order total. This overpayment means the customer has paid too much. To correct it, we should refund the extra $500 back to the customer.",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $5500.00 exceeds invoiced order total of $5000.00 by $500.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
@@ -1149,7 +1149,7 @@ export const initialMockData = {
       "action": {
         "id": 19,
         "suggested_action": "ISSUE_REFUND",
-        "llm_explanation": "The customer paid $550.00 for an order that was only $500.00, so $50.00 was overpaid. To correct this, a refund of $50.00 should be issued back to the customer.",
+        "llm_explanation": "Autonomous Balance Check: Received payment of $550.00 exceeds invoiced order total of $500.00 by $50.00. Customer likely paid duplicate invoice charges or miscalculated tax additions. Suggested Action: Issue automated partial gateway refund or allocate credit memo to customer account.",
         "explanation_source": "groq",
         "status": "APPROVED",
         "required_role": "NONE"
