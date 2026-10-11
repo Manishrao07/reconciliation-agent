@@ -35,6 +35,7 @@ export default function ApprovalsView({ user }) {
     try {
       setLoading(true);
       setError(null);
+      setDetailsMap({});
       const params = { limit: 100 };
       if (approvalFilter === 'PENDING') params.action_status = 'PENDING';
       else if (approvalFilter === 'AUTO_APPROVED') params.action_status = 'APPROVED';
@@ -61,13 +62,11 @@ export default function ApprovalsView({ user }) {
       return;
     }
     setExpandedId(id);
-    if (!detailsMap[id] || !detailsMap[id].action) {
-      try {
-        const detail = await api.getDiscrepancyDetail(id);
-        setDetailsMap(prev => ({ ...prev, [id]: detail }));
-      } catch (err) {
-        console.error("Failed to fetch detail for ID:", id, err);
-      }
+    try {
+      const detail = await api.getDiscrepancyDetail(id);
+      setDetailsMap(prev => ({ ...prev, [id]: detail }));
+    } catch (err) {
+      console.error("Failed to fetch detail for ID:", id, err);
     }
   };
 
@@ -208,6 +207,7 @@ export default function ApprovalsView({ user }) {
             const isExpanded = expandedId === d.id;
             const detail = detailsMap[d.id];
             const action = detail?.action;
+            const effectiveActionStatus = d.action_status || action?.status || 'PENDING';
 
             const sevClass = d.severity === 'HIGH' ? 'pill-danger' : (d.severity === 'MEDIUM' ? 'pill-warning' : 'pill-cyan');
             const statusClass = d.status === 'OPEN' ? 'pill-warning' : (d.status === 'RESOLVED' ? 'pill-success' : 'pill-neutral');
@@ -318,12 +318,12 @@ export default function ApprovalsView({ user }) {
 
                           <div style={{ marginTop: '0.75rem', display: 'flex', gap: '1.5rem', fontSize: '0.8rem', color: 'var(--text-dim)' }}>
                             <span>Suggested Action: <b style={{ color: 'var(--text-main)' }}>{action.suggested_action}</b></span>
-                            <span>Required Authority: <b style={{ color: 'var(--accent-indigo)' }}>{action.required_role}</b></span>
-                            <span>Status: <b className={`pill ${action.status === 'APPROVED' ? 'pill-success' : (action.status === 'REJECTED' ? 'pill-danger' : 'pill-warning')}`}>{action.status}</b></span>
+                            <span>Required Authority: <b style={{ color: 'var(--accent-indigo)' }}>{action.required_role || d.required_role}</b></span>
+                            <span>Status: <b className={`pill ${effectiveActionStatus === 'APPROVED' ? 'pill-success' : (effectiveActionStatus === 'REJECTED' ? 'pill-danger' : 'pill-warning')}`}>{effectiveActionStatus}</b></span>
                           </div>
                         </div>
 
-                        {action.status === 'APPROVED' && (
+                        {effectiveActionStatus === 'APPROVED' && (
                           <div style={{ padding: '0.65rem 1rem', background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.25)', borderRadius: 'var(--radius-md)', color: '#34D399', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                             <CheckCircle2 size={16} />
                             <span><b>Action Approved & Resolved:</b> This corrective action has been verified, approved, and posted to the immutable audit ledger.</span>
@@ -350,7 +350,7 @@ export default function ApprovalsView({ user }) {
                         )}
 
                         {/* Interactive Approval / Rejection Action Controls */}
-                        {!isAuditor && action.status === 'PENDING' && (
+                        {!isAuditor && effectiveActionStatus === 'PENDING' && (
                           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
                             <button 
                               className="btn btn-danger"
