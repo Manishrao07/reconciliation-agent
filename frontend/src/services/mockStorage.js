@@ -1,6 +1,6 @@
 import { initialMockData } from './mockData';
 
-const STORAGE_KEY = 'aequitas_demo_store_v5';
+const STORAGE_KEY = 'aequitas_demo_store_v6';
 
 const getStore = () => {
   const existing = localStorage.getItem(STORAGE_KEY);
@@ -84,14 +84,13 @@ export const mockStorage = {
 
   startRun: async () => {
     const store = getStore();
-    const currentUser = await mockStorage.getMe();
     const newId = (store.runs && store.runs.length > 0 ? store.runs[0].id : 18) + 1;
     const newRun = {
       id: newId,
       status: "COMPLETED",
       total_records: 198,
       match_rate: 73.23,
-      user_id: currentUser.id,
+      user_id: 1, // Created by Admin / System Pipeline so Finance Manager acts as independent Checker
       started_at: new Date(Date.now() - 3000).toISOString(),
       completed_at: new Date().toISOString()
     };
