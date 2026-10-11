@@ -3,6 +3,7 @@ export const initialMockData = {
     {
       "id": 18,
       "status": "COMPLETED",
+      "user_id": 1,
       "started_at": "2026-10-11T08:36:04.711839",
       "completed_at": "2026-10-11T08:36:33.308189",
       "total_records": 198,

@@ -1,6 +1,6 @@
 import { initialMockData } from './mockData';
 
-const STORAGE_KEY = 'aequitas_demo_store_v4';
+const STORAGE_KEY = 'aequitas_demo_store_v5';
 
 const getStore = () => {
   const existing = localStorage.getItem(STORAGE_KEY);
@@ -44,8 +44,9 @@ export const mockStorage = {
     const token = localStorage.getItem("aequitas_token") || "";
     try {
       const payload = JSON.parse(atob(token.replace("demo-jwt-", "")));
+      const id = payload.role === 'ADMIN' ? 1 : (payload.role === 'FINANCE_MANAGER' ? 2 : 3);
       return {
-        id: 1,
+        id,
         email: payload.email,
         full_name: payload.name,
         role: payload.role,
@@ -53,7 +54,7 @@ export const mockStorage = {
       };
     } catch {
       return {
-        id: 1,
+        id: 2,
         email: "manager@example.com",
         full_name: "Finance Manager",
         role: "FINANCE_MANAGER",
@@ -83,12 +84,14 @@ export const mockStorage = {
 
   startRun: async () => {
     const store = getStore();
+    const currentUser = await mockStorage.getMe();
     const newId = (store.runs && store.runs.length > 0 ? store.runs[0].id : 18) + 1;
     const newRun = {
       id: newId,
       status: "COMPLETED",
       total_records: 198,
       match_rate: 73.23,
+      user_id: currentUser.id,
       started_at: new Date(Date.now() - 3000).toISOString(),
       completed_at: new Date().toISOString()
     };
@@ -199,49 +202,82 @@ export const mockStorage = {
 
   approveDiscrepancy: async (id, comments = "") => {
     const store = getStore();
+    const currentUser = await mockStorage.getMe();
     const disc = (store.discrepancies || []).find(d => d.id === Number(id));
-    if (disc) {
-      disc.status = "RESOLVED";
-      disc.action_status = "APPROVED";
-      if (disc.action) disc.action.status = "APPROVED";
-      
-      // Append audit log
-      store.auditLogs.unshift({
-        id: Date.now(),
-        action: "ACTION_APPROVED",
-        entity_type: "CorrectiveAction",
-        entity_id: disc.id,
-        user_id: 1,
-        old_value: { status: "PENDING" },
-        new_value: { status: "APPROVED", comments: comments || "Approved via Command Center" },
-        timestamp: new Date().toISOString()
-      });
-      saveStore(store);
+    if (!disc) {
+      throw new Error("Discrepancy not found");
     }
+
+    // 1. Auditor is read-only
+    if (currentUser.role === 'AUDITOR') {
+      throw new Error("Auditor role is read-only and cannot approve actions.");
+    }
+
+    // 2. Maker-checker policy: proposer cannot approve their own action
+    const run = (store.runs || []).find(r => r.id === disc.run_id);
+    if (run && run.user_id && run.user_id === currentUser.id) {
+      throw new Error("Maker-Checker Policy Violation: You initiated this reconciliation run (Maker) and cannot approve your own actions. An independent reviewer (Checker) must approve.");
+    }
+
+    // 3. Role threshold check
+    const requiredRole = (disc.action && disc.action.required_role) || disc.required_role || 'FINANCE_MANAGER';
+    if (requiredRole === 'ADMIN' && currentUser.role !== 'ADMIN') {
+      throw new Error("Insufficient Authority: This high-threshold action requires ADMIN authorization.");
+    }
+
+    disc.status = "RESOLVED";
+    disc.action_status = "APPROVED";
+    if (disc.action) disc.action.status = "APPROVED";
+    
+    // Append audit log
+    if (!store.auditLogs) store.auditLogs = [];
+    store.auditLogs.unshift({
+      id: Date.now(),
+      action: "ACTION_APPROVED",
+      entity_type: "CorrectiveAction",
+      entity_id: disc.id,
+      user_id: currentUser.id,
+      old_value: { status: "PENDING" },
+      new_value: { status: "APPROVED", comments: comments || "Approved via Command Center" },
+      timestamp: new Date().toISOString()
+    });
+    saveStore(store);
     return { message: "Action approved", approval_id: Date.now() };
   },
 
   rejectDiscrepancy: async (id, comments = "") => {
     const store = getStore();
+    const currentUser = await mockStorage.getMe();
     const disc = (store.discrepancies || []).find(d => d.id === Number(id));
-    if (disc) {
-      disc.status = "REJECTED";
-      disc.action_status = "REJECTED";
-      if (disc.action) disc.action.status = "REJECTED";
-      
-      // Append audit log
-      store.auditLogs.unshift({
-        id: Date.now(),
-        action: "ACTION_REJECTED",
-        entity_type: "CorrectiveAction",
-        entity_id: disc.id,
-        user_id: 1,
-        old_value: { status: "PENDING" },
-        new_value: { status: "REJECTED", comments: comments || "Rejected" },
-        timestamp: new Date().toISOString()
-      });
-      saveStore(store);
+    if (!disc) {
+      throw new Error("Discrepancy not found");
     }
+
+    if (currentUser.role === 'AUDITOR') {
+      throw new Error("Auditor role is read-only and cannot reject actions.");
+    }
+
+    const run = (store.runs || []).find(r => r.id === disc.run_id);
+    if (run && run.user_id && run.user_id === currentUser.id) {
+      throw new Error("Maker-Checker Policy Violation: You initiated this reconciliation run (Maker) and cannot reject your own actions.");
+    }
+
+    disc.status = "REJECTED";
+    disc.action_status = "REJECTED";
+    if (disc.action) disc.action.status = "REJECTED";
+
+    if (!store.auditLogs) store.auditLogs = [];
+    store.auditLogs.unshift({
+      id: Date.now(),
+      action: "ACTION_REJECTED",
+      entity_type: "CorrectiveAction",
+      entity_id: disc.id,
+      user_id: currentUser.id,
+      old_value: { status: "PENDING" },
+      new_value: { status: "REJECTED", comments: comments || "Rejected" },
+      timestamp: new Date().toISOString()
+    });
+    saveStore(store);
     return { message: "Action rejected", approval_id: Date.now() };
   },
 

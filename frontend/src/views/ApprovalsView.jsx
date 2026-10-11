@@ -24,6 +24,7 @@ export default function ApprovalsView({ user }) {
   const [expandedId, setExpandedId] = useState(null);
   const [detailsMap, setDetailsMap] = useState({});
   const [actionLoading, setActionLoading] = useState({});
+  const [actionError, setActionError] = useState({});
   
   // Reject modal state
   const [rejectModalItem, setRejectModalItem] = useState(null);
@@ -73,13 +74,14 @@ export default function ApprovalsView({ user }) {
   const handleApprove = async (id) => {
     try {
       setActionLoading(prev => ({ ...prev, [id]: 'approving' }));
+      setActionError(prev => ({ ...prev, [id]: null }));
       await api.approveDiscrepancy(id, "Approved via React Command Center");
       await fetchDiscrepancies();
       // refresh detail
       const detail = await api.getDiscrepancyDetail(id);
       setDetailsMap(prev => ({ ...prev, [id]: detail }));
     } catch (err) {
-      alert(`Approval Failed: ${err.message}`);
+      setActionError(prev => ({ ...prev, [id]: err.message }));
     } finally {
       setActionLoading(prev => ({ ...prev, [id]: null }));
     }
@@ -325,6 +327,25 @@ export default function ApprovalsView({ user }) {
                           <div style={{ padding: '0.65rem 1rem', background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.25)', borderRadius: 'var(--radius-md)', color: '#34D399', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                             <CheckCircle2 size={16} />
                             <span><b>Policy Auto-Approved:</b> This discrepancy is below the $1,000 auto-approval threshold and was already posted autonomously. No manual human action required.</span>
+                          </div>
+                        )}
+
+                        {/* Error Banner (e.g. Maker-Checker violation or insufficient authority) */}
+                        {actionError[d.id] && (
+                          <div style={{
+                            marginBottom: '0.85rem',
+                            padding: '0.75rem 1rem',
+                            background: 'rgba(239, 68, 68, 0.12)',
+                            border: '1px solid rgba(239, 68, 68, 0.35)',
+                            borderRadius: 'var(--radius-md)',
+                            color: '#FCA5A5',
+                            fontSize: '0.825rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.6rem'
+                          }}>
+                            <AlertTriangle size={16} color="#F87171" style={{ flexShrink: 0 }} />
+                            <span>{actionError[d.id]}</span>
                           </div>
                         )}
 
