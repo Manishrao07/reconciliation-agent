@@ -33,7 +33,7 @@ def test_login_api_down(mock_post):
     
     assert data is None
     assert status == 503
-    assert err == "Cannot reach the API"
+    assert err == "Cannot reach the API. Please try again."
 
 if __name__ == "__main__":
     test_login_success()
