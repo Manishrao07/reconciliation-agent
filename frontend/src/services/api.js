@@ -1,4 +1,5 @@
 // API Service for Autonomous Finance Reconciliation Engine
+import { mockStorage } from './mockStorage';
 
 export const getApiBaseUrl = () => {
   const custom = localStorage.getItem("aequitas_api_url");
@@ -20,6 +21,9 @@ export const getToken = () => localStorage.getItem("aequitas_token");
 export const setToken = (token) => localStorage.setItem("aequitas_token", token);
 export const removeToken = () => localStorage.removeItem("aequitas_token");
 
+let isMockMode = false;
+export const isDemoModeActive = () => isMockMode;
+
 const request = async (endpoint, options = {}) => {
   const baseUrl = getApiBaseUrl();
   const token = getToken();
@@ -37,14 +41,19 @@ const request = async (endpoint, options = {}) => {
     headers["Content-Type"] = "application/json";
   }
 
+  // Add timeout of 3.5s so cloud visitors don't hang if localhost is unreachable
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 3500);
+
   try {
     const response = await fetch(`${baseUrl}${endpoint}`, {
       ...options,
       headers,
+      signal: controller.signal
     });
+    clearTimeout(timeoutId);
 
     if (response.status === 401) {
-      // If unauthorized on protected endpoint, remove stale token
       if (!endpoint.includes("/auth/login")) {
         removeToken();
         window.dispatchEvent(new Event("auth_expired"));
@@ -66,7 +75,7 @@ const request = async (endpoint, options = {}) => {
 
     return data;
   } catch (err) {
-    console.error(`API Error [${endpoint}]:`, err);
+    clearTimeout(timeoutId);
     throw err;
   }
 };
@@ -74,100 +83,188 @@ const request = async (endpoint, options = {}) => {
 export const api = {
   // Health
   checkHealth: async () => {
-    return request("/health");
+    try {
+      const data = await request("/health");
+      isMockMode = false;
+      return data;
+    } catch {
+      isMockMode = true;
+      return mockStorage.checkHealth();
+    }
   },
 
   // Auth
   login: async (email, password) => {
-    const formData = new URLSearchParams();
-    formData.append("username", email);
-    formData.append("password", password);
+    try {
+      const formData = new URLSearchParams();
+      formData.append("username", email);
+      formData.append("password", password);
 
-    const data = await request("/api/v1/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+      const data = await request("/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formData.toString(),
+      });
 
-    if (data.access_token) {
-      setToken(data.access_token);
+      if (data.access_token) {
+        setToken(data.access_token);
+      }
+      isMockMode = false;
+      return data;
+    } catch {
+      isMockMode = true;
+      return mockStorage.login(email, password);
     }
-    return data;
   },
 
   getMe: async () => {
-    return request("/api/v1/auth/me");
+    try {
+      const user = await request("/api/v1/auth/me");
+      isMockMode = false;
+      return user;
+    } catch {
+      isMockMode = true;
+      return mockStorage.getMe();
+    }
   },
 
   // Uploads
   uploadCSV: async (type, file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    return request(`/upload/${type}`, {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await request(`/upload/${type}`, {
+        method: "POST",
+        body: formData,
+      });
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.uploadCSV(type, file);
+    }
   },
 
   // Reconciliation Runs
   startRun: async () => {
-    return request("/runs", {
-      method: "POST",
-    });
+    try {
+      const res = await request("/runs", { method: "POST" });
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.startRun();
+    }
   },
 
   getRuns: async () => {
-    return request("/runs");
+    try {
+      const res = await request("/runs");
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.getRuns();
+    }
   },
 
   getRun: async (runId) => {
-    return request(`/runs/${runId}`);
+    try {
+      const res = await request(`/runs/${runId}`);
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.getRun(runId);
+    }
   },
 
   // Discrepancies
   getDiscrepancies: async (params = {}) => {
-    const searchParams = new URLSearchParams();
-    if (params.run_id) searchParams.append("run_id", params.run_id);
-    if (params.type) searchParams.append("type", params.type);
-    if (params.severity) searchParams.append("severity", params.severity);
-    if (params.status) searchParams.append("status", params.status);
-    if (params.action_status) searchParams.append("action_status", params.action_status);
-    if (params.limit) searchParams.append("limit", params.limit);
-    if (params.skip) searchParams.append("skip", params.skip);
+    try {
+      const searchParams = new URLSearchParams();
+      if (params.run_id) searchParams.append("run_id", params.run_id);
+      if (params.type) searchParams.append("type", params.type);
+      if (params.severity) searchParams.append("severity", params.severity);
+      if (params.status) searchParams.append("status", params.status);
+      if (params.action_status) searchParams.append("action_status", params.action_status);
+      if (params.limit) searchParams.append("limit", params.limit);
+      if (params.skip) searchParams.append("skip", params.skip);
 
-    const query = searchParams.toString() ? `?${searchParams.toString()}` : "";
-    return request(`/discrepancies${query}`);
+      const query = searchParams.toString() ? `?${searchParams.toString()}` : "";
+      const res = await request(`/discrepancies${query}`);
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.getDiscrepancies(params);
+    }
   },
 
   getDiscrepancyDetail: async (id) => {
-    return request(`/discrepancies/${id}`);
+    try {
+      const res = await request(`/discrepancies/${id}`);
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.getDiscrepancyDetail(id);
+    }
   },
 
   approveDiscrepancy: async (id, comments = "") => {
-    return request(`/discrepancies/${id}/approve`, {
-      method: "POST",
-      body: JSON.stringify({ comments }),
-    });
+    try {
+      const res = await request(`/discrepancies/${id}/approve`, {
+        method: "POST",
+        body: JSON.stringify({ comments }),
+      });
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.approveDiscrepancy(id, comments);
+    }
   },
 
   rejectDiscrepancy: async (id, comments = "") => {
-    return request(`/discrepancies/${id}/reject`, {
-      method: "POST",
-      body: JSON.stringify({ comments }),
-    });
+    try {
+      const res = await request(`/discrepancies/${id}/reject`, {
+        method: "POST",
+        body: JSON.stringify({ comments }),
+      });
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.rejectDiscrepancy(id, comments);
+    }
   },
 
   // Audit & Agent Decisions
   getAuditLogs: async (limit = 50, action = null) => {
-    const searchParams = new URLSearchParams();
-    searchParams.append("limit", limit);
-    if (action && action !== "ALL") searchParams.append("action", action);
-    return request(`/audit?${searchParams.toString()}`);
+    try {
+      const searchParams = new URLSearchParams();
+      searchParams.append("limit", limit);
+      if (action && action !== "ALL") searchParams.append("action", action);
+      const res = await request(`/audit?${searchParams.toString()}`);
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.getAuditLogs(limit, action);
+    }
   },
 
   getAgentDecisions: async (limit = 50) => {
-    return request(`/audit/agent-decisions?limit=${limit}`);
+    try {
+      const res = await request(`/audit/agent-decisions?limit=${limit}`);
+      isMockMode = false;
+      return res;
+    } catch {
+      isMockMode = true;
+      return mockStorage.getAgentDecisions(limit);
+    }
   },
 };

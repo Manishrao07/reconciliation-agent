@@ -20,14 +20,17 @@ export default function Navbar({ activeTab, setActiveTab, user, onLogout, onOpen
     let mounted = true;
     const ping = async () => {
       try {
-        await api.checkHealth();
-        if (mounted) setHealthStatus('online');
+        const res = await api.checkHealth();
+        if (mounted) {
+          if (res && res.status === 'healthy') setHealthStatus('online');
+          else setHealthStatus('demo');
+        }
       } catch (err) {
-        if (mounted) setHealthStatus('offline');
+        if (mounted) setHealthStatus('demo');
       }
     };
     ping();
-    const interval = setInterval(ping, 15000);
+    const interval = setInterval(ping, 20000);
     return () => {
       mounted = false;
       clearInterval(interval);
@@ -121,8 +124,10 @@ export default function Navbar({ activeTab, setActiveTab, user, onLogout, onOpen
             border: '1px solid var(--border-subtle)'
           }}
         >
-          <span className={`status-dot ${healthStatus === 'online' ? 'active' : (healthStatus === 'offline' ? 'error' : 'busy')}`} />
-          <span style={{ color: 'var(--text-muted)' }}>API {healthStatus === 'online' ? 'Connected' : 'Offline'}</span>
+          <span className={`status-dot ${healthStatus === 'online' ? 'active' : 'busy'}`} />
+          <span style={{ color: healthStatus === 'online' ? 'var(--text-main)' : 'var(--accent-indigo)', fontWeight: 500 }}>
+            {healthStatus === 'online' ? 'API Live (Connected)' : 'Cloud Interactive Showcase'}
+          </span>
         </div>
 
         {/* User Info Chip */}
