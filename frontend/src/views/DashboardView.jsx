@@ -67,6 +67,8 @@ export default function DashboardView({ onGoToUpload, onGoToApprovals }) {
   };
 
   const openDiscrepancies = discrepancies.filter(d => d.status !== 'RESOLVED');
+  const pendingHumanApprovalCount = openDiscrepancies.filter(d => d.action_status === 'PENDING').length;
+  const autoApprovedCount = openDiscrepancies.filter(d => d.action_status === 'APPROVED').length;
   const amountAtRisk = extractAmountAtRisk(discrepancies);
 
   // Group by Type
@@ -161,9 +163,9 @@ export default function DashboardView({ onGoToUpload, onGoToApprovals }) {
         />
 
         <StatCard
-          title="Pending Exceptions"
+          title="Total Exceptions"
           value={openDiscrepancies.length}
-          subtext={`${severityCountMap.HIGH} High Severity flagged`}
+          subtext={`${pendingHumanApprovalCount} need approval • ${autoApprovedCount} auto-approved`}
           icon={AlertTriangle}
           accentColor="var(--accent-amber)"
           glow="0 0 20px rgba(245, 158, 11, 0.2)"
@@ -201,7 +203,7 @@ export default function DashboardView({ onGoToUpload, onGoToApprovals }) {
               onClick={onGoToApprovals}
               style={{ marginTop: '0.85rem', width: '100%', fontSize: '0.75rem', padding: '0.45rem' }}
             >
-              <span>Review {openDiscrepancies.length} Pending Exceptions</span>
+              <span>Review Queue ({pendingHumanApprovalCount} Pending Human Approval)</span>
               <ArrowUpRight size={13} />
             </button>
           )}

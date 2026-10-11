@@ -51,16 +51,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": null,
       "related_payment_id": "PAY0205",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "ADMIN",
       "suggested_action": "INVESTIGATE_ORPHAN",
       "action": {
         "id": 71,
         "suggested_action": "INVESTIGATE_ORPHAN",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 81.24 has no matching order)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "ADMIN"
       }
     },
     {
@@ -72,16 +72,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": null,
       "related_payment_id": "PAY0204",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "INVESTIGATE_ORPHAN",
       "action": {
         "id": 70,
         "suggested_action": "INVESTIGATE_ORPHAN",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 175.37 has no matching order)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -93,16 +93,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": null,
       "related_payment_id": "PAY0203",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "INVESTIGATE_ORPHAN",
       "action": {
         "id": 69,
         "suggested_action": "INVESTIGATE_ORPHAN",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 229.31 has no matching order)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -114,16 +114,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": null,
       "related_payment_id": "PAY0202",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "ADMIN",
       "suggested_action": "INVESTIGATE_ORPHAN",
       "action": {
         "id": 68,
         "suggested_action": "INVESTIGATE_ORPHAN",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 347.01 has no matching order)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "ADMIN"
       }
     },
     {
@@ -135,16 +135,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": null,
       "related_payment_id": "PAY0201",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "INVESTIGATE_ORPHAN",
       "action": {
         "id": 67,
         "suggested_action": "INVESTIGATE_ORPHAN",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Payment 150.32 has no matching order)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -156,16 +156,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0195",
       "related_payment_id": "PAY0210",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "ESCALATE",
       "action": {
         "id": 66,
         "suggested_action": "ESCALATE",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 201.90 exceeds payment 101.90)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -177,16 +177,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0194",
       "related_payment_id": "PAY0209",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "ADMIN",
       "suggested_action": "ESCALATE",
       "action": {
         "id": 65,
         "suggested_action": "ESCALATE",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 299.02 exceeds payment 199.02)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "ADMIN"
       }
     },
     {
@@ -198,16 +198,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0193",
       "related_payment_id": "PAY0208",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "ESCALATE",
       "action": {
         "id": 64,
         "suggested_action": "ESCALATE",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 455.78 exceeds payment 355.78)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -219,16 +219,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0192",
       "related_payment_id": "PAY0207",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "ESCALATE",
       "action": {
         "id": 63,
         "suggested_action": "ESCALATE",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 438.67 exceeds payment 338.67)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -240,16 +240,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0191",
       "related_payment_id": "PAY0206",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "ADMIN",
       "suggested_action": "ESCALATE",
       "action": {
         "id": 62,
         "suggested_action": "ESCALATE",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Refund 498.00 exceeds payment 398.00)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "ADMIN"
       }
     },
     {
@@ -681,16 +681,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0170",
       "related_payment_id": "PAY0180",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "ISSUE_REFUND",
       "action": {
         "id": 41,
         "suggested_action": "ISSUE_REFUND",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 83.86, got 133.86)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -723,16 +723,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0168",
       "related_payment_id": "PAY0178",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "ISSUE_REFUND",
       "action": {
         "id": 39,
         "suggested_action": "ISSUE_REFUND",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 298.26, got 348.26)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -765,16 +765,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0166",
       "related_payment_id": "PAY0176",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "ADMIN",
       "suggested_action": "ISSUE_REFUND",
       "action": {
         "id": 37,
         "suggested_action": "ISSUE_REFUND",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 336.70, got 386.70)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "ADMIN"
       }
     },
     {
@@ -807,16 +807,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0164",
       "related_payment_id": "PAY0174",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "ISSUE_REFUND",
       "action": {
         "id": 35,
         "suggested_action": "ISSUE_REFUND",
         "llm_explanation": "Explanation unavailable due to timeout/error. (Fallback: Overpayment. Expected 423.21, got 473.21)",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -849,16 +849,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0162",
       "related_payment_id": "PAY0172",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "FINANCE_MANAGER",
       "suggested_action": "ISSUE_REFUND",
       "action": {
         "id": 33,
         "suggested_action": "ISSUE_REFUND",
         "llm_explanation": "The customer paid $507.40 for an order that was only $457.40, so there is an overpayment of $50.00. To correct this, a refund of $50.00 should be issued to the customer. The payment was recorded under Payment ID PAY0172, and the order is ORD0162.",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "FINANCE_MANAGER"
       }
     },
     {
@@ -891,16 +891,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "ORD0160",
       "related_payment_id": "PAY0170",
-      "action_status": "APPROVED",
-      "required_role": "NONE",
+      "action_status": "PENDING",
+      "required_role": "ADMIN",
       "suggested_action": "REVERSE_PAYMENT",
       "action": {
         "id": 31,
         "suggested_action": "REVERSE_PAYMENT",
         "llm_explanation": "The system found that the same amount was charged twice for the same order. Because the payment matches the order total exactly, it looks like a duplicate transaction. To correct this, the second payment should be reversed so the customer is not overcharged.",
         "explanation_source": "groq",
-        "status": "APPROVED",
-        "required_role": "NONE"
+        "status": "PENDING",
+        "required_role": "ADMIN"
       }
     },
     {
@@ -1102,7 +1102,7 @@ export const initialMockData = {
       "related_order_id": "TEST_ADMIN",
       "related_payment_id": "PAY_ADMIN",
       "action_status": "APPROVED",
-      "required_role": "ADMIN",
+      "required_role": "NONE",
       "suggested_action": "ISSUE_REFUND",
       "action": {
         "id": 21,
@@ -1110,7 +1110,7 @@ export const initialMockData = {
         "llm_explanation": "The customer paid $65,000, but the order was only for $60,000, so there is a $5,000 overpayment. To correct this, you should issue a refund of $5,000 back to the customer. The payment was recorded under the ID PAY_ADMIN and the order is TEST_ADMIN. The payment reference is REF3.",
         "explanation_source": "groq",
         "status": "APPROVED",
-        "required_role": "ADMIN"
+        "required_role": "NONE"
       }
     },
     {
@@ -1122,16 +1122,16 @@ export const initialMockData = {
       "status": "OPEN",
       "related_order_id": "TEST_MANAGER",
       "related_payment_id": "PAY_MANAGER",
-      "action_status": "PENDING",
-      "required_role": "FINANCE_MANAGER",
+      "action_status": "APPROVED",
+      "required_role": "NONE",
       "suggested_action": "ISSUE_REFUND",
       "action": {
         "id": 20,
         "suggested_action": "ISSUE_REFUND",
         "llm_explanation": "The payment of $5,500 was $500 more than the $5,000 order total. This overpayment means the customer has paid too much. To correct it, we should refund the extra $500 back to the customer.",
         "explanation_source": "groq",
-        "status": "PENDING",
-        "required_role": "FINANCE_MANAGER"
+        "status": "APPROVED",
+        "required_role": "NONE"
       }
     },
     {
