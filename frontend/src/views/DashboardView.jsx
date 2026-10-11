@@ -101,12 +101,12 @@ export default function DashboardView({ onGoToUpload, onGoToApprovals }) {
   return (
     <div className="main-content">
       {/* Top Banner with Quick Actions */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.75rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+          <h2 style={{ fontSize: '1.45rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '-0.02em', marginBottom: '0.15rem' }}>
             Executive Reconciliation Cockpit
           </h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.825rem' }}>
             Multi-way continuous matching & autonomous AI agent governance overview
           </p>
         </div>
@@ -180,18 +180,18 @@ export default function DashboardView({ onGoToUpload, onGoToApprovals }) {
       </div>
 
       {/* Center Row: Gauge & Visual Breakdown */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) 2fr', gap: '1.5rem', marginBottom: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px, 1fr) 2fr', gap: '1.25rem', marginBottom: '1.25rem' }}>
         {/* Match Rate & Run Health Card */}
-        <div className="glass-panel" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '1rem', alignSelf: 'flex-start' }}>
+        <div className="glass-panel" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+          <h3 style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '0.75rem', alignSelf: 'flex-start' }}>
             Latest Run Performance
           </h3>
-          <MatchGauge rate={latestRun ? Number(latestRun.match_rate) : 0} size={150} />
-          <div style={{ marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+          <MatchGauge rate={latestRun ? Number(latestRun.match_rate) : 0} size={130} />
+          <div style={{ marginTop: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               Status: <span className="pill pill-success">{latestRun ? latestRun.status : 'IDLE'}</span>
             </span>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>
               Started: {latestRun ? formatTimestamp(latestRun.started_at) : 'N/A'}
             </span>
           </div>
@@ -199,25 +199,25 @@ export default function DashboardView({ onGoToUpload, onGoToApprovals }) {
             <button 
               className="btn btn-secondary" 
               onClick={onGoToApprovals}
-              style={{ marginTop: '1rem', width: '100%', fontSize: '0.8rem' }}
+              style={{ marginTop: '0.85rem', width: '100%', fontSize: '0.75rem', padding: '0.45rem' }}
             >
               <span>Review {openDiscrepancies.length} Pending Exceptions</span>
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={13} />
             </button>
           )}
         </div>
 
         {/* Charts Matrix */}
-        <div className="glass-panel" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div className="glass-panel" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
-            <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+            <h3 style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
               Discrepancies by Categorical Type
             </h3>
             <TypeBarChart data={typeData} />
           </div>
 
-          <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1.25rem' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+          <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
+            <h3 style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
               Severity Composition & Impact
             </h3>
             <SeverityDonutChart data={severityCountMap} />

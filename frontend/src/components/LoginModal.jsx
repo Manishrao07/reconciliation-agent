@@ -24,11 +24,6 @@ export default function LoginModal({ onLoginSuccess }) {
     }
   };
 
-  const handleQuickLogin = (roleEmail) => {
-    setEmail(roleEmail);
-    setPassword('Demo#Pass123');
-  };
-
   return (
     <div className="modal-overlay">
       <div className="modal-content" style={{ maxWidth: '440px', padding: '2.5rem 2rem' }}>
@@ -57,54 +52,6 @@ export default function LoginModal({ onLoginSuccess }) {
             {error}
           </div>
         )}
-
-        {/* Quick Demo Logins Bar */}
-        <div style={{ marginBottom: '1.5rem' }}>
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '0.5rem' }}>
-            Quick 1-Click Role Presets:
-          </span>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
-            <button 
-              type="button"
-              className="btn btn-secondary" 
-              style={{ 
-                padding: '0.45rem', 
-                fontSize: '0.75rem', 
-                border: email === 'manager@example.com' ? '1px solid var(--accent-indigo)' : undefined,
-                background: email === 'manager@example.com' ? 'rgba(99, 102, 241, 0.15)' : undefined
-              }}
-              onClick={() => handleQuickLogin('manager@example.com')}
-            >
-              Manager
-            </button>
-            <button 
-              type="button"
-              className="btn btn-secondary" 
-              style={{ 
-                padding: '0.45rem', 
-                fontSize: '0.75rem', 
-                border: email === 'admin@example.com' ? '1px solid var(--accent-rose)' : undefined,
-                background: email === 'admin@example.com' ? 'rgba(239, 68, 68, 0.15)' : undefined
-              }}
-              onClick={() => handleQuickLogin('admin@example.com')}
-            >
-              Admin
-            </button>
-            <button 
-              type="button"
-              className="btn btn-secondary" 
-              style={{ 
-                padding: '0.45rem', 
-                fontSize: '0.75rem', 
-                border: email === 'auditor@example.com' ? '1px solid var(--accent-cyan)' : undefined,
-                background: email === 'auditor@example.com' ? 'rgba(6, 182, 212, 0.15)' : undefined
-              }}
-              onClick={() => handleQuickLogin('auditor@example.com')}
-            >
-              Auditor
-            </button>
-          </div>
-        </div>
 
         <form onSubmit={handleSubmit}>
           <div className="input-group">
@@ -159,6 +106,10 @@ export default function LoginModal({ onLoginSuccess }) {
               </>
             )}
           </button>
+
+          <div style={{ marginTop: '1.25rem', textAlign: 'center', fontSize: '0.75rem', color: 'var(--text-dim)', borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
+            Demo Access: <code style={{ color: 'var(--text-muted)' }}>manager@example.com</code> / <code style={{ color: 'var(--text-muted)' }}>admin@example.com</code> &bull; Pass: <code style={{ color: 'var(--text-muted)' }}>Demo#Pass123</code>
+          </div>
         </form>
       </div>
     </div>
