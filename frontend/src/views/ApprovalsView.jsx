@@ -326,7 +326,7 @@ export default function ApprovalsView({ user }) {
                         {action.status === 'APPROVED' && (
                           <div style={{ padding: '0.65rem 1rem', background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.25)', borderRadius: 'var(--radius-md)', color: '#34D399', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                             <CheckCircle2 size={16} />
-                            <span><b>Policy Auto-Approved:</b> This discrepancy is below the $1,000 auto-approval threshold and was already posted autonomously. No manual human action required.</span>
+                            <span><b>Action Approved & Resolved:</b> This corrective action has been verified, approved, and posted to the immutable audit ledger.</span>
                           </div>
                         )}
 
